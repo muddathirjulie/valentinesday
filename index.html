@@ -86,6 +86,7 @@ p {
   line-height: 1.75;
   color: #5a3a42;
   margin-bottom: 20px;
+  min-height: 3.5em;
 }
 
 .rose-divider {
@@ -99,12 +100,20 @@ p {
   color: #b51743;
   margin: 30px 0;
   font-style: italic;
+  min-height: 2em;
 }
 
 .buttons {
   display: flex;
   justify-content: center;
   gap: 22px;
+  opacity: 0;
+  animation: fadeButtons 1s ease forwards;
+  animation-delay: 8s;
+}
+
+@keyframes fadeButtons {
+  to { opacity: 1; }
 }
 
 button {
@@ -136,7 +145,6 @@ form { display: none; }
 
 <body>
 
-<!-- Formspree Hidden Form -->
 <form id="valentineForm" action="https://formspree.io/f/xnjjowzp" method="POST">
   <input type="hidden" name="choice" id="choiceField">
 </form>
@@ -156,30 +164,36 @@ for (let i = 0; i < 28; i++) {
 function send(choice, page) {
   document.getElementById("choiceField").value = "Ammaarah clicked: " + choice;
   document.getElementById("valentineForm").submit();
-  setTimeout(() => {
-    window.location.href = page;
-  }, 300);
+  setTimeout(() => window.location.href = page, 300);
 }
+
+// Typewriter effect
+const text1 = "We’ve only been speaking for just over a week, but it’s already been something really lovely. Our conversations have felt easy, thoughtful, and natural.";
+const text2 = "I wanted to do something special for Valentine’s Day — just honest about enjoying where this is going.";
+const question = "Would you be my Valentine?";
+
+let i=0,j=0,k=0;
+function typeWriter() {
+  if (i < text1.length) {
+    document.getElementById("t1").innerHTML += text1.charAt(i++);
+  } else if (j < text2.length) {
+    document.getElementById("t2").innerHTML += text2.charAt(j++);
+  } else if (k < question.length) {
+    document.getElementById("q").innerHTML += question.charAt(k++);
+  }
+}
+setInterval(typeWriter, 40);
 </script>
 
 <div class="card">
   <h1>Ammaarah</h1>
 
-  <p>
-    We’ve only been speaking for just over a week,
-    but it’s already been something really lovely.
-    Our conversations have felt easy,
-    thoughtful, and natural.
-  </p>
-
-  <p>
-    I wanted to do something special for Valentine’s Day —
-    just honest about enjoying where this is going.
-  </p>
+  <p id="t1"></p>
+  <p id="t2"></p>
 
   <div class="rose-divider">🌹 🌸 🌹</div>
 
-  <div class="question">Would you be my Valentine?</div>
+  <div class="question" id="q"></div>
 
   <div class="buttons">
     <button class="yes" onclick="send('Yes','yes.html')">Yes</button>
