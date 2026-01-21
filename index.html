@@ -8,9 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -33,17 +31,9 @@ body {
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.45;
-  }
-  to {
-    transform: translateY(-120vh) rotate(360deg);
-    opacity: 0;
-  }
+  from { transform: translateY(0) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.45; }
+  to { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
 
 /* Main Card */
@@ -52,9 +42,7 @@ body {
   background: linear-gradient(180deg, #fff6f8, #ffe9ef);
   padding: 60px 50px;
   border-radius: 35px;
-  box-shadow:
-    0 40px 80px rgba(0,0,0,0.25),
-    0 0 0 1px rgba(255,255,255,0.4) inset;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.25);
   max-width: 600px;
   width: 92%;
   text-align: center;
@@ -62,7 +50,6 @@ body {
   animation: floatCard 6s ease-in-out infinite;
 }
 
-/* Glow around the card */
 .card::after {
   content: "";
   position: absolute;
@@ -76,14 +63,14 @@ body {
 }
 
 @keyframes floatCard {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-10px); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
   100% { transform: translateY(0); }
 }
 
 @keyframes glowPulse {
-  0%   { opacity: 0.2; }
-  50%  { opacity: 0.45; }
+  0% { opacity: 0.2; }
+  50% { opacity: 0.45; }
   100% { opacity: 0.2; }
 }
 
@@ -136,30 +123,23 @@ button {
   box-shadow: 0 12px 25px rgba(201,24,74,0.45);
 }
 
-.yes:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 35px rgba(201,24,74,0.6);
-}
-
 .ofcourse {
   background: #fff;
   color: #b51743;
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-.ofcourse:hover {
-  transform: translateY(-4px);
-  background: #fff5f7;
-}
-
-@media (max-width: 480px) {
-  h1 { font-size: 2.8rem; }
-  .card { padding: 45px 28px; }
-}
+/* hidden form */
+form { display:none; }
 </style>
 </head>
 
 <body>
+
+<!-- Hidden Formspree form -->
+<form id="valentineForm" action="https://formspree.io/f/xnjjowzp" method="POST">
+  <input type="hidden" name="choice" id="choiceField">
+</form>
 
 <script>
 const symbols = ["❤","🌹","💗","🌸"];
@@ -171,6 +151,14 @@ for (let i = 0; i < 28; i++) {
   e.style.fontSize = Math.random() * 18 + 14 + "px";
   e.style.animationDuration = Math.random() * 10 + 14 + "s";
   document.body.appendChild(e);
+}
+
+function send(choice, page) {
+  document.getElementById("choiceField").value = "Ammaarah clicked: " + choice;
+  document.getElementById("valentineForm").submit();
+  setTimeout(() => {
+    window.location.href = page;
+  }, 300);
 }
 </script>
 
@@ -186,19 +174,16 @@ for (let i = 0; i < 28; i++) {
 
   <p>
     I wanted to do something special for Valentine’s Day —
-    not over the top —
     just honest about enjoying where this is going.
   </p>
 
   <div class="rose-divider">🌹 🌸 🌹</div>
 
-  <div class="question">
-    Would you be my Valentine?
-  </div>
+  <div class="question">Would you be my Valentine?</div>
 
   <div class="buttons">
-    <button class="yes" onclick="location.href='yes.html'">Yes</button>
-    <button class="ofcourse" onclick="location.href='ofcourse.html'">Yes, of course</button>
+    <button class="yes" onclick="send('Yes','yes.html')">Yes</button>
+    <button class="ofcourse" onclick="send('Yes, of course','ofcourse.html')">Yes, of course</button>
   </div>
 </div>
 
